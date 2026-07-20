@@ -13,11 +13,18 @@ import {
     Stack,
     TextField,
     Typography,
-    MenuItem
+    MenuItem,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
 } from "@mui/material";
 
 function Appointments() {
     const [doctors, setDoctors] = useState([]);
+    const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(false);
     const [snack, setSnack] = useState({ open: false, message: "", severity: "success" });
     const [form, setForm] = useState({
@@ -28,23 +35,23 @@ function Appointments() {
     });
 
     useEffect(() => {
-        async function loadDoctors() {
+        async function loadPageData() {
             try {
                 const token = localStorage.getItem("token");
-                const response = await api.get("/doctors", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-
-                setDoctors(response.data);
+                const headers = { Authorization: `Bearer ${token}` };
+                const [doctorsResponse, appointmentsResponse] = await Promise.all([
+                    api.get("/doctors", { headers }),
+                    api.get("/appointments", { headers })
+                ]);
+                setDoctors(doctorsResponse.data);
+                setAppointments(appointmentsResponse.data);
             }
             catch {
-                setSnack({ open: true, message: "Unable to load doctors.", severity: "error" });
+                setSnack({ open: true, message: "Unable to load your appointment data.", severity: "error" });
             }
         }
 
-        loadDoctors();
+        loadPageData();
     }, []);
 
     async function handleSubmit(e) {
@@ -66,6 +73,10 @@ function Appointments() {
                 appointment_time: "",
                 notes: ""
             });
+            const appointmentsResponse = await api.get("/appointments", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setAppointments(appointmentsResponse.data);
         }
         catch {
             setSnack({ open: true, message: "Unable to book appointment.", severity: "error" });
@@ -147,6 +158,39 @@ function Appointments() {
                             </Grid>
                         </Grid>
                     </Box>
+
+                    <Typography variant="h5" fontWeight="bold" sx={{ mt: 5, mb: 2 }}>
+                        My Appointments
+                    </Typography>
+                    <Typography color="text.secondary" sx={{ mb: 2 }}>
+                        Only appointments booked with your account are shown here.
+                    </Typography>
+                    <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Table size="small">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Doctor</b></TableCell>
+                                    <TableCell><b>Date</b></TableCell>
+                                    <TableCell><b>Time</b></TableCell>
+                                    <TableCell><b>Status</b></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {appointments.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={4} align="center">You have no appointments yet.</TableCell>
+                                    </TableRow>
+                                ) : appointments.map((appointment) => (
+                                    <TableRow key={appointment.id}>
+                                        <TableCell>{appointment.doctor_name}</TableCell>
+                                        <TableCell>{appointment.appointment_date}</TableCell>
+                                        <TableCell>{appointment.appointment_time?.slice(0, 5)}</TableCell>
+                                        <TableCell>{appointment.status}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Paper>
             </Container>
 
