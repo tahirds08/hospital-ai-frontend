@@ -1,0 +1,145 @@
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 40px;
+
+    background:rgba(20,20,20,.95);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(255,122,0,.20);
+
+}
+
+
+/* ===========================
+   Logo
+=========================== */
+
+.navbar-logo{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#ff7a00;
+
+}
+
+
+/* ===========================
+   Links
+=========================== */
+
+.navbar-links{
+
+    display:flex;
+
+    gap:28px;
+
+}
+
+
+.navbar-links a{
+
+    color:#d0d0d0;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+
+.navbar-links a:hover{
+
+    color:#ff9500;
+
+}
+
+
+.navbar-links .active{
+
+    color:#ff7a00;
+
+    font-weight:bold;
+
+}
+
+
+/* ===========================
+   Logout
+=========================== */
+
+.logout-btn{
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ff7a00;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+.logout-btn:hover{
+
+    background:#ff9500;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+.navbar{
+
+    flex-direction:column;
+
+    gap:15px;
+
+    padding:20px;
+
+}
+
+.navbar-links{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+}
