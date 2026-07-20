@@ -14,7 +14,8 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+// import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import tahirImage from "../assets/tahir.jpg";
 
 function Navbar() {
 
@@ -83,30 +84,24 @@ function Navbar() {
                         sx={{
                             width: 44,
                             height: 44,
-                            borderRadius: 3,
-                            display: "grid",
-                            placeItems: "center",
-                            background:
-                                "linear-gradient(135deg, rgba(77, 208, 225, 0.2), rgba(139, 92, 246, 0.24))",
-                            border: "1px solid rgba(255,255,255,0.08)"
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            border: (theme) => `1px solid ${theme.palette.primary.light}`
                         }}
                     >
-                        <LocalHospitalIcon />
+                        <img src={tahirImage} 
+                        alt="Tahir" 
+                        style={{ width: "100%", height: "100%", 
+                        objectFit: "cover", borderRadius: "50%" }} 
+                        />
                     </Box>
 
                     <Box>
-                        <Typography
-                            variant="subtitle2"
-                            sx={{
-                                color: "primary.light",
-                                letterSpacing: "0.16em",
-                                textTransform: "uppercase"
-                            }}
-                        >
-                            Hospital AI
-                        </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Intelligent care operations platform
+                            Created By
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: "primary.light", maxWidth: 760 }}>
+                            Tahir M.
                         </Typography>
                     </Box>
                 </Box>
