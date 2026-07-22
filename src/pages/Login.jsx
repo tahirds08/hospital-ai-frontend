@@ -47,7 +47,7 @@ function Login() {
                 setError(detail);
             }
             else {
-                setError("Unable to reach the server. Check that the backend is running.");
+                setError("We could not reach hospital services. Please wait a minute and try again.");
             }
         }
         finally {
