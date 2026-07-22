@@ -32,7 +32,7 @@ function BackendWakeUpNotice() {
 
     return (
         <Snackbar open={showNotice} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-            <Alert severity="info" variant="filled" sx={{ alignItems: "center" }}>
+            <Alert severity="info" variant="filled" sx={{ alignItems: "center", color: "common.white" }}>
                 Our secure services are waking up. This can take up to a minute—please wait.
             </Alert>
         </Snackbar>
